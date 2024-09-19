@@ -73,13 +73,16 @@ public class Main {
                     }
                     break;
                 case "4":
+                    int counter = 0;
                     for (int i = 0; i < customerList.size(); i++)
                     {
                         if (customerList.get(i).getBalance() < 0)
                         {
+                            counter += 1;
                             System.out.println(customerList.get(i));
                         }
                     }
+                    System.out.println("total amount of people with negative balance: " + counter);
                     break;
                 case "5":
                     for (int i = 0; i < customerList.size(); i++)
