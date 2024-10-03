@@ -134,39 +134,43 @@ public class Menu {
                             e.printStackTrace();
                         }
                     }
-                    System.out.println("you need to choose at least one droid for each team: ");
-                    List<Droid> team1 = new ArrayList<>();
-                    List<Droid> team2 = new ArrayList<>();
+                    if (listOfAllDroids.size() < 2) {
+                        System.out.println("you need to have more than two droids to perform 1v1 fight");
+                    } else {
+                        System.out.println("you need to choose at least one droid for each team: ");
+                        List<Droid> team1 = new ArrayList<>();
+                        List<Droid> team2 = new ArrayList<>();
 
 
-                    while (true) {
-                        miniChooseForManyToManyFight();
-                        int ask = scanner.nextInt();
-                        if (ask == 3) break;
-                        if (ask == 1) {
-                            Droid tempDroid = choosingOneDroidFromListOfDroids();
-                            team1.add(tempDroid);
-                        } else if (ask == 2) {
-                            Droid tempDroid = choosingOneDroidFromListOfDroids();
-                            team2.add(tempDroid);
-                        } else if (ask == 0) {
-                            System.out.println("team1: ");
-                            for (Droid droid : team1) System.out.print(droid.getName() + "\t");
-                            System.out.println("\nteam2: ");
-                            for (Droid droid : team2) System.out.print(droid.getName() + "\t");
-                            System.out.println();
+                        while (true) {
+                            miniChooseForManyToManyFight();
+                            int ask = scanner.nextInt();
+                            if (ask == 3) break;
+                            if (ask == 1) {
+                                Droid tempDroid = choosingOneDroidFromListOfDroids();
+                                team1.add(tempDroid);
+                            } else if (ask == 2) {
+                                Droid tempDroid = choosingOneDroidFromListOfDroids();
+                                team2.add(tempDroid);
+                            } else if (ask == 0) {
+                                System.out.println("team1: ");
+                                for (Droid droid : team1) System.out.print(droid.getName() + "\t");
+                                System.out.println("\nteam2: ");
+                                for (Droid droid : team2) System.out.print(droid.getName() + "\t");
+                                System.out.println();
+                            }
                         }
+                        if (team1.size() != team2.size()) {
+                            System.out.println("you need to have the same amount of droids in both teams");
+                            break;
+                        }
+                        if (team1.isEmpty()) {
+                            System.out.println("you need to at least one droid for each team");
+                            break;
+                        }
+                        Fight manyToManyFight = new ManyToManyFight(team1, team2);
+                        manyToManyFight.fight();
                     }
-                    if (team1.size() != team2.size()) {
-                        System.out.println("you need to have the same amount of droids in both teams");
-                        break;
-                    }
-                    if (team1.isEmpty()) {
-                        System.out.println("you need to at least one droid for each team");
-                        break;
-                    }
-                    Fight manyToManyFight = new ManyToManyFight(team1, team2);
-                    manyToManyFight.fight();
                     break;
                 case 4:
                     if (file.exists() && file.length() == 0) {
