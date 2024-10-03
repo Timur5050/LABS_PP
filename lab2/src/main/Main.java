@@ -91,7 +91,7 @@ public class Main {
                     }
                     break;
                 default:
-                    System.out.println("you hae only options: (0 - 5)");
+                    System.out.println("you have only options: (0 - 5)");
             }
         }
     }
