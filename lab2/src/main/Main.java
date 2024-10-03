@@ -40,8 +40,9 @@ public class Main {
                     String firstname = scanner.next();
                     System.out.print("enter middlename: ");
                     String middlename = scanner.next();
+                    scanner.nextLine();
                     System.out.print("enter address: ");
-                    String address = scanner.next();
+                    String address = scanner.nextLine();
                     System.out.print("enter card number: ");
                     String cardnumber = scanner.next();
                     System.out.print("enter balance: ");
