@@ -140,15 +140,16 @@ public class ManyToManyFight extends Fight {
     private void step(Droid droid1, Droid droid2, String player) {
 
         if (Objects.equals(droid1.getType(), "attacker")) {
-            System.out.println(COLOR_YELLOW + "droid" + droid1.getName() + " hit " + droid2.getName() + COLOR_RESET);
+            int damage = droid1.getTotalDamage();
+            droid2.receiveDamage(damage);
+            System.out.println(COLOR_YELLOW + "(" + player + ") droid" + droid1.getName() + " hit " + droid2.getName() + " with " + damage + ", now is has : " + droid2.getHealthPoints() + "hp\n" + COLOR_RESET);
             try (FileWriter writer = new FileWriter(file, true)) {
-                writer.write(COLOR_YELLOW + "(" + player + ") droid" + droid1.getName() + " hit " + droid2.getName() + "\n" + COLOR_RESET);
+                writer.write(COLOR_YELLOW + "(" + player + ") droid" + droid1.getName() + " hit " + droid2.getName() + " with " + damage + ", now is has : " + droid2.getHealthPoints() + "hp\n" + COLOR_RESET);
             }
             catch (IOException e) {
                 e.printStackTrace();
             }
-            int damage = droid1.getTotalDamage();
-            droid2.receiveDamage(damage);
+
             // splash check
             if (droid1.getSplashDamage() > 0) {
                 if (Objects.equals(player, "first")) {
@@ -167,9 +168,9 @@ public class ManyToManyFight extends Fight {
             }
 
         } else if (Objects.equals(droid1.getType(), "healer")) {
-            System.out.println(COLOR_YELLOW + "droid" + droid1.getName() + " healed the team " + COLOR_RESET);
+            System.out.println(COLOR_YELLOW + "droid " + droid1.getName() + " healed the team with " + droid1.getHeal() + "hps" + COLOR_RESET);
             try (FileWriter writer = new FileWriter(file, true)) {
-                writer.write( COLOR_YELLOW + "(" + player + ") droid" + droid1.getName() + " healed the team " + "\n" + COLOR_RESET);
+                writer.write( COLOR_YELLOW + "(" + player + ") droid " + droid1.getName() + " healed the team with " + droid1.getHeal() + "hps" + "\n" + COLOR_RESET);
             }
             catch (IOException e) {
                 e.printStackTrace();
@@ -187,36 +188,40 @@ public class ManyToManyFight extends Fight {
             if (droid1.getRevive() == 1) {
                 int number;
                 Droid revivedDroid;
+                List<Droid> team = player.equals("first") ? team1 : team2; // Вибір команди залежно від гравця
                 System.out.println("enter number of droid to revive");
-                if (Objects.equals(player, "first")) {
-                    do {
-                        System.out.print("enter number: ");
-                        number = scanner.nextInt();
-                    } while (team1.get(number).isAlive());
-                    team1.get(number).receiveHeal(team1.get(number).getMaxHealthPoints());
-                    revivedDroid = team1.get(number);
-                    System.out.println(COLOR_YELLOW + droid1.getName() + "revived" + team1.get(number).getName() + COLOR_RESET);
+
+                boolean allAlive = true;
+                for(Droid droid : team) {
+                    if (!droid.isAlive()) {
+                        allAlive = false;
+                        break;
+                    }
+                }
+
+                if (allAlive) {
+                    System.out.println("no one to revive");
                 } else {
                     do {
                         System.out.print("enter number: ");
                         number = scanner.nextInt();
-                    } while (team2.get(number).isAlive());
-                    team2.get(number).receiveHeal(team2.get(number).getMaxHealthPoints());
-                    revivedDroid = team1.get(number);
-                    System.out.println(COLOR_YELLOW + droid1.getName() + "revived" + team2.get(number).getName() + COLOR_RESET);
-                }
-                try (FileWriter writer = new FileWriter(file, true)) {
-                    writer.write( COLOR_YELLOW + "(" + player + ") " + droid1.getName() + "revived" + revivedDroid.getName() + COLOR_RESET);
-                }
-                catch (IOException e) {
-                    e.printStackTrace();
+                    } while (team.get(number).isAlive());
+
+                    revivedDroid = team.get(number);
+                    revivedDroid.receiveHeal(revivedDroid.getMaxHealthPoints());
+
+                    System.out.println(COLOR_YELLOW + droid1.getName() + " revived " + revivedDroid.getName() + COLOR_RESET);
+                    try (FileWriter writer = new FileWriter(file, true)) {
+                        writer.write(COLOR_YELLOW + "(" + player + ") " + droid1.getName() + " revived " + revivedDroid.getName() + COLOR_RESET);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             } else {
-                System.out.println(COLOR_YELLOW + "(" + player + ") " + "that droid can not revive any more" + COLOR_RESET );
+                System.out.println(COLOR_YELLOW + "(" + player + ") " + "that droid can not revive any more" + COLOR_RESET);
                 try (FileWriter writer = new FileWriter(file, true)) {
-                    writer.write( COLOR_YELLOW + "(" + player + ") " + "that droid can not revive any more" + COLOR_RESET);
-                }
-                catch (IOException e) {
+                    writer.write(COLOR_YELLOW + "(" + player + ") " + "that droid can not revive any more" + COLOR_RESET);
+                } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
