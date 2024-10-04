@@ -141,7 +141,6 @@ public class Menu {
                         List<Droid> team1 = new ArrayList<>();
                         List<Droid> team2 = new ArrayList<>();
 
-
                         while (true) {
                             miniChooseForManyToManyFight();
                             int ask = scanner.nextInt();

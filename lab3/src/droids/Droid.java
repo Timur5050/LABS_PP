@@ -22,7 +22,7 @@ abstract public class Droid {
     }
 
     public void receiveHeal(int heal) {
-        if (healthPoints > 0) {
+        if (healthPoints >= 0) {
             if (heal + healthPoints > maxHealthPoints) {
                 healthPoints = maxHealthPoints;
             } else {
@@ -61,5 +61,10 @@ abstract public class Droid {
 
     public int getMaxHealthPoints() {
         return maxHealthPoints;
+    }
+
+    public void setZeroRevivalOpportunity()
+    {
+        this.revive = 0;
     }
 }
