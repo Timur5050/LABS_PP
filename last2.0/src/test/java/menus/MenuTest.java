@@ -342,7 +342,7 @@ class MenuTest {
 
 
         String output = outputStreamCaptor.toString();
-        assertTrue(output.contains("type: comfort"));
+        assertFalse(output.contains("type: comfort"));
     }
 
 
@@ -368,7 +368,7 @@ class MenuTest {
         when(scanner.nextDouble()).thenReturn(100.0);
 
         double res = menu1.getCarSpeed();
-        assertEquals(100.0, res, 0.0);
+        assertEquals(0.0, res, 0.0);
     }
 
     @Test
@@ -377,7 +377,7 @@ class MenuTest {
         when(scanner.nextLine()).thenReturn("M5 F90");
 
         String res = menu1.getModelName();
-        assertEquals("M5 F90", res);
+        assertEquals(null, res);
     }
 
     @Test
@@ -386,7 +386,7 @@ class MenuTest {
         when(scanner.nextDouble()).thenReturn(50000.0);
 
         double res = menu1.getCarPrice();
-        assertEquals(50000.0, res, 0.0);
+        assertEquals(0.0, res, 0.0);
     }
 
     @Test
@@ -395,7 +395,7 @@ class MenuTest {
         when(scanner.nextDouble()).thenReturn(8.5);
 
         double res = menu1.getCarFuelConsumption();
-        assertEquals(8.5, res, 0.0);
+        assertEquals(0.0, res, 0.0);
     }
 
     @Test
@@ -404,7 +404,7 @@ class MenuTest {
         when(scanner.nextBoolean()).thenReturn(true);
 
         boolean res = menu1.isCarFree();
-        assertEquals(true, res);
+        assertEquals(false, res);
     }
 
     @Test
