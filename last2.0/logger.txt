@@ -1,0 +1,8 @@
+
+POST add cars to the fleet from the file Standard(Audi A8) added Standard(Mercedes-Benz S-Class) added Standard(Volkswagen Touran) added Standard(Fiat 500) added Standard(Toyota Camry) added Standard(Subaru Outback) added
+POST add car manually
+POST add car manually
+POST add car manually
+POST add car manually
+POST add car manually
+POST add car manually
