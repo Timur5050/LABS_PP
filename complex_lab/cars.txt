@@ -1,6 +1,0 @@
-Business,Audi A8,350,180000,12,true,true,true
-Comfort,Mercedes-Benz S-Class,400,200000,10,true,excellent
-Kids,Volkswagen Touran,150,30000,18,true,3
-Lite,Fiat 500,90,15000,25,true
-Standard,Toyota Camry,250,35000,15,true,true
-Wagon,Subaru Outback,250,35000,15,true,4

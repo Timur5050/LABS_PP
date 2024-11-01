@@ -1,12 +1,14 @@
 package Fleets;
 
 import cars.Car;
+import logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CarFleet {
     private final List<Car> carFleet = new ArrayList<>();
+    private Logger logger = new Logger();
 
     public List<Car> getCarFleet()
     {
@@ -44,8 +46,9 @@ public class CarFleet {
         return listOfCars;
     }
 
-    public void     addCarToTheFleet(Car car)
+    public void addCarToTheFleet(Car car)
     {
         carFleet.add(car);
+        logger.logInformation(" " + car.getType() + "(" + car.getModeName() + ") added");
     }
 }
